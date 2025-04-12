@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alumni Network</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/network.css">
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">
+            <h1>AlumniVenture</h1>
+        </div>
+        <div class="nav-links">
+            <ul>
+                <li><a href="/dash">Home</a></li>
+                <li><a href="/idea">Ideas</a></li>
+                <li><a href="/fund" class="active">Funding</a></li>
+                <li><a href="/network">Network</a></li>
+                <li><a href="/progress">Progress</a></li>
+            </ul>
+        </div>
+        <div class="auth-buttons">
+            <button class="btn signup" id="logoutBtn">Logout</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header>
+            <h1>Alumni Network & Connections</h1>
+        </header>
+
+        <main>
+            <div class="filter-section">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="student">Student Entrepreneurs</button>
+                <button class="filter-btn" data-filter="alumni">Alumni</button>
+                <button class="filter-btn" data-filter="forum">Forum</button>
+            </div>
+
+            <!-- Forum Section (Initially Hidden) -->
+            <section class="forum-section" id="forumSection">
+                <h2 class="section-title">Community Forums</h2>
+                <div class="forum-channels">
+                    <div class="channel-card">
+                        <h3>Startup Ideation</h3>
+                        <p>Brainstorm and refine your business ideas with fellow entrepreneurs and mentors.</p>
+                        <a href="https://discord.gg/startupideation" target="_blank" class="discord-btn">Join
+                            Discord</a>
+                    </div>
+
+                    <div class="channel-card">
+                        <h3>Funding Opportunities</h3>
+                        <p>Discuss funding sources, pitch strategies, and connect with potential investors.</p>
+                        <a href="https://discord.gg/fundingopps" target="_blank" class="discord-btn">Join Discord</a>
+                    </div>
+
+                    <div class="channel-card">
+                        <h3>Tech Stack Discussions</h3>
+                        <p>Technical discussions about development, tools, and technology choices for your startup.</p>
+                        <a href="https://discord.gg/techstack" target="_blank" class="discord-btn">Join Discord</a>
+                    </div>
+
+                    <div class="channel-card">
+                        <h3>Marketing Strategies</h3>
+                        <p>Share and learn effective marketing strategies for early-stage startups.</p>
+                        <a href="https://discord.gg/marketingstrat" target="_blank" class="discord-btn">Join Discord</a>
+                    </div>
+
+                    <div class="channel-card">
+                        <h3>Alumni Mentorship</h3>
+                        <p>Connect with successful alumni mentors for guidance and support.</p>
+                        <a href="https://discord.gg/alumnimentor" target="_blank" class="discord-btn">Join Discord</a>
+                    </div>
+
+                    <div class="channel-card">
+                        <h3>Hiring & Team Building</h3>
+                        <p>Find co-founders, team members, and discuss effective team building strategies.</p>
+                        <a href="https://discord.gg/teambuilding" target="_blank" class="discord-btn">Join Discord</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="connection-section" id="connectionsSection">
+                <h2 class="section-title">Recommended Connections</h2>
+
+                <div class="connection-grid">
+                    <!-- Student Entrepreneurs -->
+                    <div class="connection-card" data-type="student">
+                        <div class="card-content">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrtk5h32XtvbNoaYsIz5vA8-kgqjJQQEVUkNvJoAyOwxMOLokE_uIZhpZSjJjVZ92V5Ms&usqp=CAU"
+                                alt="Profile Image" class="profile-image">
+                            <h3 class="profile-name">Arjun Sharma</h3>
+                            <p class="profile-title">Student Entrepreneur</p>
+                            <p class="profile-industry">EdTech Startup | Class of 2025</p>
+                            <div class="button-group">
+                                <a href="https://wa.me/919876543210" target="_blank" class="connect-btn">Connect</a>
+                                <a href="https://discord.gg/edtech-channel" target="_blank" class="forum-btn">Forum</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="connection-card" data-type="student">
+                        <div class="card-content">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTORx8fw_FtieuHgDMms_vFMPxJyJDbTRFVVxlT72k9icL4OQ0GnI6UKBT9p1Kde42UTI&usqp=CAU"
+                                alt="Profile Image" class="profile-image">
+                            <h3 class="profile-name">Shanaya Patel</h3>
+                            <p class="profile-title">Student Entrepreneur</p>
+                            <p class="profile-industry">Fintech Startup | Class of 2024</p>
+                            <div class="button-group">
+                                <a href="https://wa.me/919876543211" target="_blank" class="connect-btn">Connect</a>
+                                <a href="https://discord.gg/fintech-channel" target="_blank" class="forum-btn">Forum</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="connection-card" data-type="student">
+                        <div class="card-content">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTgQwiE_XbPTe_Q3NzhFkE6Nbxs0j5rqUb2YNVuyuW-ysuuvuxJCsji88qe4JcgGAVJeE&usqp=CAU"
+                                alt="Profile Image" class="profile-image">
+                            <h3 class="profile-name">Vikram Singh</h3>
+                            <p class="profile-title">Student Entrepreneur</p>
+                            <p class="profile-industry">HealthTech Startup | Class of 2023</p>
+                            <div class="button-group">
+                                <a href="https://wa.me/919876543212" target="_blank" class="connect-btn">Connect</a>
+                                <a href="https://discord.gg/healthtech-channel" target="_blank"
+                                    class="forum-btn">Forum</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="connection-card" data-type="student">
+                        <div class="card-content">
+                            <img src="data:image/jpeg;base64,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"
+                                alt="Profile Image" class="profile-image">
+                            <h3 class="profile-name">meera kapoor</h3>
+                            <p class="profile-title">Student Entrepreneur</p>
+                            <p class="profile-industry">AgriTech Startup | Class of 2024</p>
+                            <div class="button-group">
+                                <a href="https://wa.me/919876543213" target="_blank" class="connect-btn">Connect</a>
+                                <a href="https://discord.gg/agritech-channel" target="_blank"
+                                    class="forum-btn">Forum</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="connection-card" data-type="student">
+                        <div class="card-content">
+                            <img src="data:image/jpeg;base64,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"
+                                alt="Profile Image" class="profile-image">
+                            <h3 class="profile-name">Kavya Iyer</h3>
+                            <p class="profile-title">Alumni Angel Investor</p>
+                            <p class="profile-industry">Technology | Class of 2015</p>
+                            <div class="button-group">
+                                <a href="https://wa.me/919669866963" target="_blank" class="connect-btn">Connect</a>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Alumni Based -->
+                    <div class="connection-card" data-type="alumni">
+                        <div class="card-content">
+                            <img src="https://randomuser.me/api/portraits/men/72.jpg" alt="Profile Image"
+                                class="profile-image">
+                            <h3 class="profile-name">Rajesh Khanna</h3>
+                            <p class="profile-title">Alumni Angel Investor</p>
+                            <p class="profile-industry">Technology | Class of 2015</p>
+                            <div class="button-group">
+                                <a href="https://wa.me/919876543215" target="_blank" class="connect-btn">Connect</a>
+                                <a href="https://discord.gg/investors-channel" target="_blank"
+                                    class="forum-btn">Forum</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="connection-card" data-type="alumni">
+                        <div class="card-content">
+                            <img src="https://randomuser.me/api/portraits/women/35.jpg" alt="Profile Image"
+                                class="profile-image">
+                            <h3 class="profile-name">Neha Gupta</h3>
+                            <p class="profile-title">Alumni Mentor</p>
+                            <p class="profile-industry">Product Management | Class of 2016</p>
+                            <div class="button-group">
+                                <a href="https://wa.me/919876543216" target="_blank" class="connect-btn">Connect</a>
+                                <a href="https://discord.gg/product-channel" target="_blank" class="forum-btn">Forum</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="connection-card" data-type="alumni">
+                        <div class="card-content">
+                            <img src="https://randomuser.me/api/portraits/men/15.jpg" alt="Profile Image"
+                                class="profile-image">
+                            <h3 class="profile-name">Sunil Reddy</h3>
+                            <p class="profile-title">Alumni Entrepreneur</p>
+                            <p class="profile-industry">Renewable Energy | Class of 2017</p>
+                            <div class="button-group">
+                                <a href="https://wa.me/919876543217" target="_blank" class="connect-btn">Connect</a>
+                                <a href="https://discord.gg/cleantech-channel" target="_blank"
+                                    class="forum-btn">Forum</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="connection-card" data-type="alumni">
+                        <div class="card-content">
+                            <img src="https://randomuser.me/api/portraits/women/22.jpg" alt="Profile Image"
+                                class="profile-image">
+                            <h3 class="profile-name">Pooja Agarwal</h3>
+                            <p class="profile-title">Alumni Investor</p>
+                            <p class="profile-industry">Venture Capital | Class of 2014</p>
+                            <div class="button-group">
+                                <a href="https://wa.me/919876543218" target="_blank" class="connect-btn">Connect</a>
+                                <a href="https://discord.gg/vc-channel" target="_blank" class="forum-btn">Forum</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="connection-card" data-type="alumni">
+                        <div class="card-content">
+                            <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Profile Image"
+                                class="profile-image">
+                            <h3 class="profile-name">Rohit Kumar</h3>
+                            <p class="profile-title">Alumni Mentor</p>
+                            <p class="profile-industry">Digital Marketing | Class of 2018</p>
+                            <div class="button-group">
+                                <a href="https://wa.me/919876543219" target="_blank" class="connect-btn">Connect</a>
+                                <a href="https://discord.gg/marketing-channel" target="_blank"
+                                    class="forum-btn">Forum</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h2>AlumniVenture</h2>
+                <p>Connecting ideas with resources since 2023</p>
+            </div>
+            <div class="footer-links">
+                <div class="link-group">
+                    <h4>Platform</h4>
+                    <ul>
+                        <li><a href="#">How It Works</a></li>
+                        <li><a href="#">Success Stories</a></li>
+                        <li><a href="#">For Investors</a></li>
+                        <li><a href="#">For Entrepreneurs</a></li>
+                    </ul>
+                </div>
+                <div class="link-group">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="link-group">
+                    <h4>Connect</h4>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 AlumniVenture. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Filter functionality
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const connectionCards = document.querySelectorAll('.connection-card');
+        const forumSection = document.getElementById('forumSection');
+        const connectionsSection = document.getElementById('connectionsSection');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+
+                // Add active class to clicked button
+                this.classList.add('active');
+
+                const filterValue = this.getAttribute('data-filter');
+
+                // Handle forum section display
+                if (filterValue === 'forum') {
+                    forumSection.style.display = 'block';
+                    connectionsSection.style.display = 'none';
+                } else {
+                    forumSection.style.display = 'none';
+                    connectionsSection.style.display = 'block';
+
+                    // Filter connection cards
+                    connectionCards.forEach(card => {
+                        const cardType = card.getAttribute('data-type');
+
+                        if (filterValue === 'all' || cardType === filterValue) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                }
+            });
+        });
+
+        // Logout button functionality
+        document.getElementById('logoutBtn').addEventListener('click', function () {
+            alert('Logout functionality would be implemented here');
+            // Redirect to login page or perform actual logout
+        });
+
+        // Initially hide forum section
+        forumSection.style.display = 'none';
+
+        // Add click tracking for connection and forum buttons
+        const connectButtons = document.querySelectorAll('.connect-btn');
+        const forumButtons = document.querySelectorAll('.forum-btn');
+
+        connectButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const name = this.closest('.card-content').querySelector('.profile-name').textContent;
+                console.log(`Connected with ${name}`);
+                // You could add analytics tracking here
+            });
+        });
+
+        forumButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const name = this.closest('.card-content').querySelector('.profile-name').textContent;
+                console.log(`Joined forum with ${name}`);
+                // You could add analytics tracking here
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Check if user is logged in
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            if (!isLoggedIn) {
+                window.location.href = '/network';
+                return;
+            }
+
+            // Get current user
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (!currentUser) {
+                localStorage.removeItem('isLoggedIn');
+                window.location.href = 'network';
+                return;
+            }
+
+            // Set user greeting
+            const userGreeting = document.getElementById('userGreeting');
+            if (userGreeting) {
+                userGreeting.textContent = `Welcome, ${currentUser.fullName}!`;
+            }
+
+            // Display profile info
+            displayProfileInfo(currentUser.id);
+
+            // Logout button handler
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', handleLogout);
+            }
+        });
+
+        // Display user profile information
+        function displayProfileInfo(userId) {
+            const profileInfo = document.getElementById('profileInfo');
+            if (!profileInfo) return;
+
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const user = users.find(user => user.id === userId);
+
+            if (!user) {
+                profileInfo.innerHTML = '<p>Error loading profile information</p>';
+                return;
+            }
+
+            // Create profile HTML
+            let html = `
+        <div class="profile-detail">
+            <strong>Name:</strong> ${user.fullName}
+        </div>
+        <div class="profile-detail">
+            <strong>Email:</strong> ${user.email}
+        </div>
+        <div class="profile-detail">
+            <strong>Role:</strong> ${user.role.charAt(0).toUpperCase() + user.role.slice(1)}
+        </div>
+    `;
+
+            if (user.education) {
+                html += `
+            <div class="profile-detail">
+                <strong>Education:</strong>
+                <p>${user.education}</p>
+            </div>
+        `;
+            }
+
+            if (user.experience) {
+                html += `
+            <div class="profile-detail">
+                <strong>Experience:</strong>
+                <p>${user.experience}</p>
+            </div>
+        `;
+            }
+
+            if (user.interests) {
+                html += `
+            <div class="profile-detail">
+                <strong>Interests:</strong>
+                <p>${user.interests}</p>
+            </div>
+        `;
+            }
+
+            profileInfo.innerHTML = html;
+        }
+
+        // Handle logout
+        function handleLogout() {
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('currentUser');
+            window.location.href = '/network';
+        }
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Check if user is logged in
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            if (!isLoggedIn) {
+                window.location.href = '/network';
+                return;
+            }
+
+            // Get current user
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (!currentUser) {
+                localStorage.removeItem('isLoggedIn');
+                window.location.href = '/network';
+                return;
+            }
+
+            // Set user greeting
+            const userGreeting = document.getElementById('userGreeting');
+            if (userGreeting) {
+                userGreeting.textContent = `Welcome, ${currentUser.fullName}!`;
+            }
+
+            // Display profile info
+            displayProfileInfo(currentUser.id);
+
+            // Logout button handler
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', handleLogout);
+            }
+        });
+
+        // Display user profile information
+        function displayProfileInfo(userId) {
+            const profileInfo = document.getElementById('profileInfo');
+            if (!profileInfo) return;
+
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const user = users.find(user => user.id === userId);
+
+            if (!user) {
+                profileInfo.innerHTML = '<p>Error loading profile information</p>';
+                return;
+            }
+
+            // Create profile HTML
+            let html = `
+        <div class="profile-detail">
+            <strong>Name:</strong> ${user.fullName}
+        </div>
+        <div class="profile-detail">
+            <strong>Email:</strong> ${user.email}
+        </div>
+        <div class="profile-detail">
+            <strong>Role:</strong> ${user.role.charAt(0).toUpperCase() + user.role.slice(1)}
+        </div>
+    `;
+
+            if (user.education) {
+                html += `
+            <div class="profile-detail">
+                <strong>Education:</strong>
+                <p>${user.education}</p>
+            </div>
+        `;
+            }
+
+            if (user.experience) {
+                html += `
+            <div class="profile-detail">
+                <strong>Experience:</strong>
+                <p>${user.experience}</p>
+            </div>
+        `;
+            }
+
+            if (user.interests) {
+                html += `
+            <div class="profile-detail">
+                <strong>Interests:</strong>
+                <p>${user.interests}</p>
+            </div>
+        `;
+            }
+
+            profileInfo.innerHTML = html;
+        }
+
+        // Handle logout
+        function handleLogout() {
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('currentUser');
+            window.location.href = '/network';
+        }
+
+
+    </script>
+</body>
+
+</html>

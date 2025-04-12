@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alumni Network - Register</title>
+    <link rel="stylesheet" href="css/register.css">
+    
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h1>Alumni Network</h1>
+            <h2>Create Your Account</h2>
+            <form action="register" method="POST">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="fullName" class="required-field">Full Name</label>
+                        <input type="text" id="fullName" name="fullName" required placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="required-field">Email Address</label>
+                        <input type="email" id="email" name="email" required placeholder="Enter your email">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="password" class="required-field">Password</label>
+                        <input type="password" id="password" name="password" required placeholder="Create a password">
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword" class="required-field">Confirm Password</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" required
+                            placeholder="Confirm your password">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="role" class="required-field">Select Role</label>
+                    <select id="role" name="role" required>
+                        <option value="">-- Select your role --</option>
+                        <option value="student">Student</option>
+                        <option value="alumni">Alumni</option>
+                        <option value="faculty">Faculty</option>
+                        <option value="investor">Investor</option>
+                        <option value="mentor">Mentor</option>
+                        <option value="entrepreneur">Entrepreneur</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="education">Education</label>
+                    <textarea id="education" name="education"
+                        placeholder="Your educational background (degrees, institutions, graduation years)"
+                        rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="experience">Experience</label>
+                    <textarea id="experience" name="experience"
+                        placeholder="Your work experience (positions, companies, years)" rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="interests">Interests</label>
+                    <textarea id="interests" name="interests"
+                        placeholder="Your professional interests, skills, and areas of expertise" rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit">Create Account</button>
+                </div>
+
+                <div class="form-footer">
+                    <p>Already have an account? <a href="/index">Login</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Use the registration-specific JS file instead of the general auth.js -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+    // Check if user is already logged in
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    if (isLoggedIn) {
+        window.location.href = '../dash.html';
+        return;
+    }
+
+    // Get registration form
+    const registerForm = document.getElementById('registerForm');
+    if (!registerForm) return;
+
+    // Add error message div if it doesn't exist
+    if (!document.getElementById('errorMessage')) {
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'error-message';
+        errorDiv.id = 'errorMessage';
+        errorDiv.style.display = 'none';
+        registerForm.insertBefore(errorDiv, registerForm.firstChild);
+    }
+
+    // Add success message div if it doesn't exist
+    if (!document.getElementById('successMessage')) {
+        const successDiv = document.createElement('div');
+        successDiv.className = 'success-message';
+        successDiv.id = 'successMessage';
+        successDiv.style.display = 'none';
+        registerForm.insertBefore(successDiv, registerForm.firstChild);
+    }
+
+    // Handle form submission
+    registerForm.addEventListener('submit', handleRegister);
+
+    // Add password validation
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirmPassword');
+
+    if (passwordInput && confirmPasswordInput) {
+        confirmPasswordInput.addEventListener('input', function () {
+            validatePasswords(passwordInput, confirmPasswordInput);
+        });
+
+        passwordInput.addEventListener('input', function () {
+            if (confirmPasswordInput.value) {
+                validatePasswords(passwordInput, confirmPasswordInput);
+            }
+        });
+    }
+});
+
+// Validate that passwords match
+function validatePasswords(passwordInput, confirmPasswordInput) {
+    if (passwordInput.value !== confirmPasswordInput.value) {
+        confirmPasswordInput.setCustomValidity("Passwords don't match");
+    } else {
+        confirmPasswordInput.setCustomValidity('');
+    }
+}
+
+// Handle registration form submission
+function handleRegister(e) {
+    e.preventDefault();
+
+    // Get form fields
+    const fullName = document.getElementById('fullName').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+    const role = document.getElementById('role').value;
+    const education = document.getElementById('education').value.trim();
+    const experience = document.getElementById('experience').value.trim();
+    const interests = document.getElementById('interests').value.trim();
+
+    // Get message elements
+    const errorMessage = document.getElementById('errorMessage');
+    const successMessage = document.getElementById('successMessage');
+
+    // Reset messages
+    errorMessage.style.display = 'none';
+    successMessage.style.display = 'none';
+
+    // Validate required fields
+    if (!fullName || !email || !password || !confirmPassword || !role) {
+        displayError('Please fill in all required fields');
+        return;
+    }
+
+    // Validate email format
+    if (!isValidEmail(email)) {
+        displayError('Please enter a valid email address');
+        return;
+    }
+
+    // Validate password match
+    if (password !== confirmPassword) {
+        displayError('Passwords do not match');
+        return;
+    }
+
+    // Validate password strength
+    if (password.length < 6) {
+        displayError('Password must be at least 6 characters long');
+        return;
+    }
+
+    // Check if user already exists
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    if (users.some(user => user.email === email)) {
+        displayError('Email is already registered');
+        return;
+    }
+
+    // Create new user object
+    const newUser = {
+        id: generateUserId(),
+        fullName,
+        email,
+        password, // In a real app, hash this password
+        role,
+        education,
+        experience,
+        interests,
+        createdAt: new Date().toISOString()
+    };
+
+    // Save user to local storage
+    users.push(newUser);
+    localStorage.setItem('users', JSON.stringify(users));
+
+    // Show success message
+    successMessage.textContent = 'Registration successful! Redirecting to login...';
+    successMessage.style.display = 'block';
+
+    // Redirect to login page after delay
+    setTimeout(() => {
+        window.location.href = '../Login/login.html';
+    }, 2000);
+}
+
+// Display error message
+function displayError(message) {
+    const errorMessage = document.getElementById('errorMessage');
+    errorMessage.textContent = message;
+    errorMessage.style.display = 'block';
+
+    // Scroll to error message
+    errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+// Validate email format
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+// Generate unique user ID
+function generateUserId() {
+    return Date.now().toString() + Math.random().toString(36).substr(2, 9);
+}
+    </script>
+</body>
+
+</html>

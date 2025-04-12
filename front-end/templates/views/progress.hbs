@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress Tracking & Reporting | Investor Portal</title>
+
+    <style>
+        :root {
+            --primary: #2855b8;
+            --secondary: #1e3c7b;
+            --accent: #4db6ac;
+            --light: #f7f9fc;
+            --dark: #2c3e50;
+            --success: #43a047;
+            --warning: #ff9800;
+            --danger: #e53935;
+            --primary-color: #4361ee;
+            --secondary-color: #3a0ca3;
+            --accent-color: #f72585;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --gray-color: #6c757d;
+            --success-color: #38b000;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: var(--light);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-color);
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn.primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn.secondary {
+            background-color: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn.login {
+            background-color: transparent;
+            border: 1px solid var(--light-color);
+            color: var(--light-color);
+        }
+
+        .btn.signup {
+            background-color: var(--light-color);
+            color: var(--primary-color);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background-color: var(--primary-color);
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .nav-links ul {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            position: relative;
+            padding-bottom: 5px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--light-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        .subtitle {
+            font-weight: 300;
+            margin-top: 0.5rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        section {
+            margin-bottom: 3rem;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .section-header {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 1.5rem 2rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-header h2 {
+            margin: 0;
+        }
+
+        .section-header i {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+        }
+
+        .section-content {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 2rem;
+            gap: 2rem;
+        }
+
+        .image-container {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .image-container img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .text-container {
+            flex: 2;
+            min-width: 300px;
+        }
+
+        .feature-card {
+            background: #f7f9fc;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--primary);
+        }
+
+        .feature-card h4 {
+            margin-top: 0;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+
+        .feature-card h4 span {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .metric-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border-top: 3px solid var(--accent);
+        }
+
+        .metric-card .value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin: 0.5rem 0;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--success);
+            border-radius: 4px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 1rem;
+            transition: background 0.3s;
+        }
+
+        .cta-button:hover {
+            background: var(--secondary);
+        }
+
+        .dashboard-preview {
+            margin-top: 2rem;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .dashboard-tabs {
+            display: flex;
+            background: #f7f9fc;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .dashboard-tab {
+            padding: 1rem 1.5rem;
+            font-weight: bold;
+            color: #777;
+            cursor: pointer;
+        }
+
+        .dashboard-tab.active {
+            background: white;
+            color: var(--primary);
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .dashboard-content {
+            padding: 1.5rem;
+            background: white;
+        }
+
+        .chart-container {
+            height: 250px;
+            margin-bottom: 1.5rem;
+            position: relative;
+            background: #f9f9f9;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .chart-bar {
+            position: absolute;
+            bottom: 0;
+            width: 30px;
+            background: var(--primary);
+            border-radius: 4px 4px 0 0;
+        }
+
+        .chart-line {
+            position: absolute;
+            background: var(--accent);
+            height: 3px;
+        }
+
+        .chart-dot {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        .roi-comparison {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .roi-card {
+            flex: 1;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            margin: 0 0.5rem;
+        }
+
+        .roi-card.projected {
+            background: #e8f5e9;
+            border: 1px solid #c8e6c9;
+        }
+
+        .roi-card.actual {
+            background: #e3f2fd;
+            border: 1px solid #bbdefb;
+        }
+
+        .roi-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
+
+        .roi-card.projected .roi-value {
+            color: var(--success);
+        }
+
+        .roi-card.actual .roi-value {
+            color: var(--primary);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: var(--dark);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .section-content {
+                flex-direction: column;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .roi-comparison {
+                flex-direction: column;
+            }
+
+            .roi-card {
+                margin: 0.5rem 0;
+            }
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 80px 50px 20px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer-logo h2 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .footer-logo p {
+            color: #aaa;
+            max-width: 300px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+
+        .link-group h4 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .link-group h4::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            /* background-color: var(--primary-color); */
+        }
+
+        .link-group ul li {
+            margin-bottom: 12px;
+            text-decoration: none;
+            list-style: none;
+        }
+
+        .link-group ul li a {
+            color: #aaa;
+            transition: color 0.3s ease;
+            text-decoration: none;
+        }
+
+        .link-group ul li a:hover {
+            color: white;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 14px;
+        }
+    </style>
+
+</head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">
+            <h1>AlumniVenture</h1>
+        </div>
+        <div class="nav-links">
+            <ul>
+                <li><a href="/dash">Home</a></li>
+                <!-- <li><a href="#">Profiles</a></li> -->
+                <li><a href="/idea">Ideas</a></li>
+                <li><a href="/fund">Funding</a></li>
+                <li><a href="/network">Network</a></li>
+                <li><a href="/progress" class="active">Progress</a></li>
+            </ul>
+        </div>
+        <div class="auth-buttons">
+            <!-- <button class="btn login">Log In</button> -->
+            <button class="btn signup" id="logoutBtn">Logout</button>
+        </div>
+        <div class="hamburger">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+    <header>
+        <h1>Progress Tracking & Reporting</h1>
+        <p class="subtitle">Comprehensive tools for monitoring portfolio performance</p>
+    </header>
+
+    <div class="container">
+        <!-- Milestone Tracking Section -->
+        <section id="milestone-tracking">
+            <div class="section-header">
+                <h2>Milestone Tracking for Funded Projects</h2>
+            </div>
+            <div class="section-content">
+                <div class="image-container">
+                    <img src="Marketing-dashboard.png" alt="Project milestone tracking dashboard" />
+                </div>
+                <div class="text-container">
+                    <p>Our milestone tracking system provides comprehensive visibility into the progress of your funded
+                        projects. Stay informed about key achievements, upcoming deadlines, and potential roadblocks
+                        with our intuitive tracking tools.</p>
+
+                    <div class="feature-card">
+                        <h4><span>1</span> Custom Milestone Framework</h4>
+                        <p>Define custom milestone frameworks for different investment categories. Set up
+                            stage-appropriate milestones for seed, Series A, and growth-stage companies with different
+                            expectations and metrics.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <h4><span>2</span> Automated Progress Updates</h4>
+                        <p>Receive automated notifications when portfolio companies update their milestone status. Our
+                            system prompts founders to provide regular updates with supporting documentation and metrics
+                            to validate progress claims.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <h4><span>3</span> Risk Assessment</h4>
+                        <p>Our AI-powered risk assessment tool analyzes milestone completion patterns to identify
+                            potential delays or execution challenges before they impact project timelines. Early warning
+                            indicators allow for proactive intervention.</p>
+                    </div>
+
+                    <div class="dashboard-preview">
+                        <div class="dashboard-tabs">
+                            <div class="dashboard-tab active">Project Overview</div>
+                            <div class="dashboard-tab">Timeline</div>
+                            <div class="dashboard-tab">Documents</div>
+                        </div>
+                        <div class="dashboard-content">
+                            <div class="metrics-grid">
+                                <div class="metric-card">
+                                    <h5>Total Milestones</h5>
+                                    <div class="value">24</div>
+                                </div>
+                                <div class="metric-card">
+                                    <h5>Completed</h5>
+                                    <div class="value">16</div>
+                                    <div class="progress-bar">
+                                        <div class="progress-bar-fill" style="width: 67%;"></div>
+                                    </div>
+                                    <small>67% Complete</small>
+                                </div>
+                                <div class="metric-card">
+                                    <h5>At Risk</h5>
+                                    <div class="value">2</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="#" class="cta-button">View Demo</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Real-time Dashboards Section -->
+        <section id="real-time-dashboards">
+            <div class="section-header">
+                <h2>Real-time Dashboards for Investors</h2>
+            </div>
+            <div class="section-content">
+                <div class="image-container">
+                    <img src="investor.png" alt="Investor dashboard with real-time metrics" />
+                </div>
+                <div class="text-container">
+                    <p>Our real-time dashboards provide a comprehensive view of your investment portfolio performance.
+                        Access critical metrics, KPIs, and performance indicators in a visually intuitive format that
+                        enables data-driven decision making.</p>
+
+                    <div class="feature-card">
+                        <h4><span>1</span> Portfolio Overview</h4>
+                        <p>Get a bird's-eye view of your entire investment portfolio with key performance indicators
+                            across all funded projects. Filter by industry, funding stage, or custom tags to analyze
+                            specific segments.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <h4><span>2</span> Financial Performance Metrics</h4>
+                        <p>Track revenue growth, burn rate, runway length, cash flow, and other critical financial
+                            metrics in real-time. Compare actual performance against projections with variance analyses
+                            and trend indicators.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <h4><span>3</span> Custom KPI Tracking</h4>
+                        <p>Configure industry-specific KPIs that matter most to your investment thesis. Whether you're
+                            tracking Monthly Recurring Revenue (MRR), Customer Acquisition Cost (CAC), or User Growth
+                            Rate, our platform adapts to your specific needs.</p>
+                    </div>
+
+                    <div class="chart-container">
+                        <div class="chart-bar" style="left: 40px; height: 60%; background: #4db6ac;"></div>
+                        <div class="chart-bar" style="left: 80px; height: 75%;"></div>
+                        <div class="chart-bar" style="left: 120px; height: 45%; background: #4db6ac;"></div>
+                        <div class="chart-bar" style="left: 160px; height: 80%;"></div>
+                        <div class="chart-bar" style="left: 200px; height: 90%;"></div>
+                        <div class="chart-bar" style="left: 240px; height: 65%; background: #4db6ac;"></div>
+
+                        <div class="chart-line" style="bottom: 50%; left: 40px; width: 200px;"></div>
+                        <div class="chart-dot" style="bottom: 50%; left: 40px;"></div>
+                        <div class="chart-dot" style="bottom: 50%; left: 80px;"></div>
+                        <div class="chart-dot" style="bottom: 50%; left: 120px;"></div>
+                        <div class="chart-dot" style="bottom: 50%; left: 160px;"></div>
+                        <div class="chart-dot" style="bottom: 50%; left: 200px;"></div>
+                        <div class="chart-dot" style="bottom: 50%; left: 240px;"></div>
+                    </div>
+
+                    <a href="#" class="cta-button">Request Demo Access</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ROI Tracking Section -->
+        <section id="roi-tracking">
+            <div class="section-header">
+                <h2>ROI Tracking for Investors</h2>
+            </div>
+            <div class="section-content">
+                <div class="image-container">
+                    <img src="roi.jpg" alt="ROI tracking analytics dashboard" />
+                </div>
+                <div class="text-container">
+                    <p>Our sophisticated ROI tracking tools help you measure the effectiveness of your investments. From
+                        initial capital deployment to exit scenarios, gain clear insights into realized and potential
+                        returns across your portfolio.</p>
+
+                    <div class="feature-card">
+                        <h4><span>1</span> Multi-factor ROI Analysis</h4>
+                        <p>Go beyond simple financial returns with our multi-factor ROI analysis. Track financial
+                            performance alongside strategic value, market positioning, IP development, and other
+                            non-financial returns that contribute to overall investment success.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <h4><span>2</span> Comparative Benchmarking</h4>
+                        <p>Compare portfolio performance against industry benchmarks, market indices, or custom peer
+                            groups. Understand how your investments stack up against similar companies or alternative
+                            investment opportunities.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <h4><span>3</span> Predictive ROI Modeling</h4>
+                        <p>Our predictive analytics engine forecasts potential ROI based on current performance trends
+                            and market conditions. Model different exit scenarios and valuation multiples to estimate
+                            future returns and optimize investment strategies.</p>
+                    </div>
+
+                    <div class="roi-comparison">
+                        <div class="roi-card projected">
+                            <h4>Projected ROI</h4>
+                            <div class="roi-value">3.8x</div>
+                            <p>Based on current growth trajectory</p>
+                        </div>
+                        <div class="roi-card actual">
+                            <h4>Current ROI</h4>
+                            <div class="roi-value">2.1x</div>
+                            <p>Based on latest valuation</p>
+                        </div>
+                    </div>
+
+                    <a href="#" class="cta-button">Schedule Demo</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Integration Section -->
+        <section id="integrations">
+            <div class="section-header">
+                <h2>Seamless Integrations</h2>
+            </div>
+            <div class="section-content">
+                <div class="text-container" style="flex: 1;">
+                    <p>Our platform seamlessly integrates with your existing tools and systems to provide a unified view
+                        of your investment portfolio.</p>
+
+                    <div class="metrics-grid">
+                        <div class="feature-card">
+                            <h4><span>1</span> Financial Systems</h4>
+                            <p>Connect with QuickBooks, Xero, NetSuite, and other financial systems to import real-time
+                                financial data from portfolio companies.</p>
+                        </div>
+
+                        <div class="feature-card">
+                            <h4><span>2</span> CRM Integration</h4>
+                            <p>Sync with Salesforce, HubSpot, and other CRM platforms to track customer metrics and
+                                sales performance.</p>
+                        </div>
+
+                        <div class="feature-card">
+                            <h4><span>3</span> Data Export</h4>
+                            <p>Export reports and data to Excel, Google Sheets, or custom formats for further analysis
+                                or board presentations.</p>
+                        </div>
+
+                        <div class="feature-card">
+                            <h4><span>4</span> API Access</h4>
+                            <p>Use our comprehensive API to build custom integrations or connect with proprietary
+                                systems.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h2>AlumniVenture</h2>
+                <p>Connecting ideas with resources since 2023</p>
+            </div>
+            <div class="footer-links">
+                <div class="link-group">
+                    <h4>Platform</h4>
+                    <ul>
+                        <li><a href="#">How It Works</a></li>
+                        <li><a href="#">Success Stories</a></li>
+                        <li><a href="#">For Investors</a></li>
+                        <li><a href="#">For Entrepreneurs</a></li>
+                    </ul>
+                </div>
+                <div class="link-group">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="link-group">
+                    <h4>Connect</h4>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 AlumniVenture. All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Check if user is logged in
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            if (!isLoggedIn) {
+                window.location.href = '/progress';
+                return;
+            }
+
+            // Get current user
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (!currentUser) {
+                localStorage.removeItem('isLoggedIn');
+                window.location.href = '/progress';
+                return;
+            }
+
+            // Set user greeting
+            const userGreeting = document.getElementById('userGreeting');
+            if (userGreeting) {
+                userGreeting.textContent = `Welcome, ${currentUser.fullName}!`;
+            }
+
+            // Display profile info
+            displayProfileInfo(currentUser.id);
+
+            // Logout button handler
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', handleLogout);
+            }
+        });
+
+        // Display user profile information
+        function displayProfileInfo(userId) {
+            const profileInfo = document.getElementById('profileInfo');
+            if (!profileInfo) return;
+
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const user = users.find(user => user.id === userId);
+
+            if (!user) {
+                profileInfo.innerHTML = '<p>Error loading profile information</p>';
+                return;
+            }
+
+            // Create profile HTML
+            let html = `
+        <div class="profile-detail">
+            <strong>Name:</strong> ${user.fullName}
+        </div>
+        <div class="profile-detail">
+            <strong>Email:</strong> ${user.email}
+        </div>
+        <div class="profile-detail">
+            <strong>Role:</strong> ${user.role.charAt(0).toUpperCase() + user.role.slice(1)}
+        </div>
+    `;
+
+            if (user.education) {
+                html += `
+            <div class="profile-detail">
+                <strong>Education:</strong>
+                <p>${user.education}</p>
+            </div>
+        `;
+            }
+
+            if (user.experience) {
+                html += `
+            <div class="profile-detail">
+                <strong>Experience:</strong>
+                <p>${user.experience}</p>
+            </div>
+        `;
+            }
+
+            if (user.interests) {
+                html += `
+            <div class="profile-detail">
+                <strong>Interests:</strong>
+                <p>${user.interests}</p>
+            </div>
+        `;
+            }
+
+            profileInfo.innerHTML = html;
+        }
+
+        // Handle logout
+        function handleLogout() {
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('currentUser');
+            window.location.href = '/progress';
+        }
+
+        // Mobile Navigation
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        if (hamburger) {
+            hamburger.addEventListener('click', () => {
+                navLinks.classList.toggle('show');
+            });
+        }
+
+        // Counter Animation
+        const counters = document.querySelectorAll('.counter');
+        const speed = 200;
+
+        function animateCounters() {
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const count = +counter.innerText;
+
+                const increment = target / speed;
+
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + increment);
+                    setTimeout(animateCounters, 1);
+                } else {
+                    counter.innerText = target.toLocaleString();
+                }
+            });
+        }
+
+        // Check if element is in viewport
+        function isInViewport(element) {
+            const rect = element.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+        }
+
+        // Start animation when stats section is in viewport
+        const statsSection = document.querySelector('.stats');
+        let hasAnimated = false;
+
+        window.addEventListener('scroll', () => {
+            if (isInViewport(statsSection) && !hasAnimated) {
+                animateCounters();
+                hasAnimated = true;
+            }
+        });
+
+        // Testimonial Slider
+        const slides = document.querySelectorAll('.testimonial-slide');
+        const dots = document.querySelectorAll('.dot');
+        const prevBtn = document.querySelector('.prev-btn');
+        const nextBtn = document.querySelector('.next-btn');
+        let currentSlide = 0;
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+
+            currentSlide = (n + slides.length) % slides.length;
+
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function prevSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        if (prevBtn && nextBtn) {
+            prevBtn.addEventListener('click', prevSlide);
+            nextBtn.addEventListener('click', nextSlide);
+        }
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                showSlide(index);
+            });
+        });
+
+        // Auto-advance slides
+        let slideInterval = setInterval(nextSlide, 6000);
+
+        // Pause auto-advance on hover
+        const testimonialSlider = document.querySelector('.testimonial-slider');
+        if (testimonialSlider) {
+            testimonialSlider.addEventListener('mouseenter', () => {
+                clearInterval(slideInterval);
+            });
+
+            testimonialSlider.addEventListener('mouseleave', () => {
+                slideInterval = setInterval(nextSlide, 6000);
+            });
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Mobile responsive navbar
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 1024) {
+                navLinks.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+
+</html>
