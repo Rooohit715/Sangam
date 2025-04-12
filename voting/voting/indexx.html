@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Voting System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #3498db;
+            --success: #2ecc71;
+            --danger: #e74c3c;
+            --dark: #34495e;
+            --light: #ecf0f1;
+               --primary: #4361ee;
+    --primary-color: #4361ee;
+    --dark-color: #1e2736;
+    --light-color: #ffffff;
+    --light-gray: #f5f7fa;
+    --gray-bg: #ecf0f1;
+    --border-radius: 8px;
+        }
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: var(--dark-color);
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn.primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn.secondary {
+    background-color: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+}
+
+.btn.login {
+    background-color: transparent;
+    border: 1px solid var(--light-color);
+    color: var(--light-color);
+}
+
+.btn.signup {
+    background-color: var(--light-color);
+    color: var(--primary-color);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+section {
+    padding: 80px 0;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    background-color: var(--primary-color);
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.logo h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: white;
+}
+
+.nav-links ul {
+    display: flex;
+    gap: 25px;
+}
+
+.nav-links a {
+    font-weight: 500;
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--light-color);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+    width: 100%;
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.hamburger {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+     
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: var(--dark);
+        }
+        
+        .events-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        
+        @media (min-width: 768px) {
+            .events-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        .event-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .event-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .event-image {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .event-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50px;
+            background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+        }
+        
+        .event-content {
+            padding: 20px;
+        }
+        
+        .event-title {
+            margin-top: 0;
+            color: var(--dark);
+        }
+        
+        .event-date {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .event-description {
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .interaction-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        .like-container, .vote-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        
+        button:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+        
+        .like-btn {
+            color: var(--primary);
+        }
+        
+        .like-btn.active {
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        .upvote-btn {
+            color: var(--success);
+        }
+        
+        .downvote-btn {
+            color: var(--danger);
+        }
+        
+        .count {
+            margin: 0 8px;
+            font-weight: bold;
+        }
+        
+        .vote-score {
+            margin: 0 10px;
+            font-weight: bold;
+        }
+        
+        .stats-panel {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 30px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        table th, table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        table th {
+            background-color: #f5f5f5;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        /* Footer */
+footer {
+    background-color: var(--dark-color);
+    color: white;
+    padding: 80px 50px 20px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 40px;
+    margin-bottom: 60px;
+}
+
+.footer-logo h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.footer-logo p {
+    color: #aaa;
+    max-width: 300px;
+}
+
+.footer-links {
+    display: flex;
+    gap: 60px;
+    flex-wrap: wrap;
+}
+
+.link-group h4 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.link-group h4::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 30px;
+    height: 2px;
+    background-color: var(--primary-color);
+}
+
+.link-group ul li {
+    margin-bottom: 12px;
+}
+
+.link-group ul li a {
+    color: #aaa;
+    transition: color 0.3s ease;
+}
+
+.link-group ul li a:hover {
+    color: white;
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.social-icons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.social-icons a:hover {
+    background-color: var(--primary-color);
+    transform: translateY(-3px);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: #aaa;
+    font-size: 14px;
+}
+
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <h1>AlumniVenture</h1>
+        </div>
+        <div class="nav-links">
+            <ul>
+                <li><a href="../../dash.html">Home</a></li>
+                <li><a href="../../idea/idea.html" >Ideas</a></li>
+                <li><a href="../../fund/fund.html">Funding</a></li>
+                <li><a href="../../network/network.html">Network</a></li>
+                <!-- <li><a href="#">Validation</a></li> -->
+                <li><a href="#" class="active">Events</a></li>
+                <li><a href="../../progress/progress/index.html">Progress</a></li>
+            </ul>
+        </div>
+        <div class="auth-buttons">
+            <!-- <button class="btn login">Log In</button> -->
+            <button class="btn signup" id="logoutBtn">Logout</button>
+        </div>
+        <div class="hamburger">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+    <div class="container">
+        <header>
+            <h1>Upcoming Events</h1>
+            <p>Like and vote for your favorite events!</p>
+        </header>
+        
+        <div class="events-container" id="events-container">
+            <!-- Events will be added dynamically via JavaScript -->
+        </div>
+        
+        <div class="stats-panel">
+            <h2>Interaction Statistics</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Event</th>
+                        <th>Likes</th>
+                        <th>Upvotes</th>
+                        <th>Downvotes</th>
+                    </tr>
+                </thead>
+                <tbody id="stats-body">
+                    <!-- Stats will be added dynamically -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+<footer>
+    <div class="footer-content">
+        <div class="footer-logo">
+            <h2>AlumniVenture</h2>
+            <p>Connecting ideas with resources since 2023</p>
+        </div>
+        <div class="footer-links">
+            <div class="link-group">
+                <h4>Platform</h4>
+                <ul>
+                    <li><a href="#">How It Works</a></li>
+                    <li><a href="#">Success Stories</a></li>
+                    <li><a href="#">For Investors</a></li>
+                    <li><a href="#">For Entrepreneurs</a></li>
+                </ul>
+            </div>
+            <div class="link-group">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="link-group">
+                <h4>Connect</h4>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2025 AlumniVenture. All rights reserved.</p>
+    </div>
+</footer>
+    <script>
+        // Event data
+        const events = [
+            {
+                id: 1,
+                title: "Summer Music Festival",
+                date: "June 15-17, 2025",
+                description: "A three-day music extravaganza featuring top artists from around the world. Experience amazing performances across multiple stages.",
+                // image: "/api/placeholder/400/200?text=Music Festival",
+                image: "music.jpg",
+                likes: 0,
+                upvotes: 0,
+                downvotes: 0,
+                userLiked: false,
+                userVoted: null // null, 'up', or 'down'
+            },
+            {
+                id: 2,
+                title: "Tech Conference 2025",
+                date: "April 22-23, 2025",
+                description: "Join industry leaders and innovators to explore the latest technologies and trends that are shaping our future.",
+                image: "images.jpg",
+                likes: 0,
+                upvotes: 0,
+                downvotes: 0,
+                userLiked: false,
+                userVoted: null
+            },
+            {
+                id: 3,
+                title: "Food & Wine Festival",
+                date: "May 5-7, 2025",
+                description: "Indulge in culinary delights and fine wines from renowned chefs and wineries. A feast for all your senses!",
+                image: "food.jpg",
+                likes: 0,
+                upvotes: 0,
+                downvotes: 0,
+                userLiked: false,
+                userVoted: null
+            },
+            {
+                id: 4,
+                title: "International Film Festival",
+                date: "July 10-20, 2025",
+                description: "Celebrate cinematic excellence with screenings of acclaimed films from around the globe and Q&A sessions with filmmakers.",
+                image: "film.jpg",
+                likes: 0,
+                upvotes: 0,
+                downvotes: 0,
+                userLiked: false,
+                userVoted: null
+            }
+        ];
+
+        // DOM Elements
+        const eventsContainer = document.getElementById('events-container');
+        const statsBody = document.getElementById('stats-body');
+
+        // Render events
+        function renderEvents() {
+            eventsContainer.innerHTML = '';
+            
+            events.forEach(event => {
+                const eventCard = document.createElement('div');
+                eventCard.className = 'event-card';
+                
+                eventCard.innerHTML = `
+                    <div class="event-image" style="background-image: url('${event.image}')"></div>
+                    <div class="event-content">
+                        <h2 class="event-title">${event.title}</h2>
+                        <div class="event-date">${event.date}</div>
+                        <p class="event-description">${event.description}</p>
+                        <div class="interaction-bar">
+                            <div class="like-container">
+                                <button class="like-btn ${event.userLiked ? 'active' : ''}" data-id="${event.id}">
+                                    ❤️ <span class="count">${event.likes}</span>
+                                </button>
+                            </div>
+                            <div class="vote-container">
+                                <button class="upvote-btn ${event.userVoted === 'up' ? 'active' : ''}" data-id="${event.id}">
+                                    👍 <span class="count">${event.upvotes}</span>
+                                </button>
+                                <div class="vote-score">${event.upvotes - event.downvotes}</div>
+                                <button class="downvote-btn ${event.userVoted === 'down' ? 'active' : ''}" data-id="${event.id}">
+                                    👎 <span class="count">${event.downvotes}</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                eventsContainer.appendChild(eventCard);
+            });
+            
+            // Add event listeners after rendering
+            addEventListeners();
+        }
+
+        // Update stats table
+        function updateStats() {
+            statsBody.innerHTML = '';
+            
+            events.forEach(event => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${event.title}</td>
+                    <td>${event.likes}</td>
+                    <td>${event.upvotes}</td>
+                    <td>${event.downvotes}</td>
+                `;
+                statsBody.appendChild(row);
+            });
+        }
+
+        // Add event listeners for buttons
+        function addEventListeners() {
+            // Like buttons
+            document.querySelectorAll('.like-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const eventId = parseInt(button.getAttribute('data-id'));
+                    const event = events.find(e => e.id === eventId);
+                    
+                    if (event.userLiked) {
+                        event.likes--;
+                        event.userLiked = false;
+                    } else {
+                        event.likes++;
+                        event.userLiked = true;
+                    }
+                    
+                    renderEvents();
+                    updateStats();
+                });
+            });
+
+            // Upvote buttons
+            document.querySelectorAll('.upvote-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const eventId = parseInt(button.getAttribute('data-id'));
+                    const event = events.find(e => e.id === eventId);
+                    
+                    if (event.userVoted === 'up') {
+                        // Undo upvote
+                        event.upvotes--;
+                        event.userVoted = null;
+                    } else {
+                        // Add upvote
+                        event.upvotes++;
+                        
+                        // If previously downvoted, remove downvote
+                        if (event.userVoted === 'down') {
+                            event.downvotes--;
+                        }
+                        
+                        event.userVoted = 'up';
+                    }
+                    
+                    renderEvents();
+                    updateStats();
+                });
+            });
+
+            // Downvote buttons
+            document.querySelectorAll('.downvote-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const eventId = parseInt(button.getAttribute('data-id'));
+                    const event = events.find(e => e.id === eventId);
+                    
+                    if (event.userVoted === 'down') {
+                        // Undo downvote
+                        event.downvotes--;
+                        event.userVoted = null;
+                    } else {
+                        // Add downvote
+                        event.downvotes++;
+                        
+                        // If previously upvoted, remove upvote
+                        if (event.userVoted === 'up') {
+                            event.upvotes--;
+                        }
+                        
+                        event.userVoted = 'down';
+                    }
+                    
+                    renderEvents();
+                    updateStats();
+                });
+            });
+        }
+    document.addEventListener('DOMContentLoaded', function () {
+            // Check if user is logged in
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            if (!isLoggedIn) {
+                window.location.href = '../../Login/login.html';
+                return;
+            }
+
+            // Get current user
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (!currentUser) {
+                localStorage.removeItem('isLoggedIn');
+                window.location.href = '../../Login/login.html';
+                return;
+            }
+
+            // Set user greeting
+            const userGreeting = document.getElementById('userGreeting');
+            if (userGreeting) {
+                userGreeting.textContent = `Welcome, ${currentUser.fullName}!`;
+            }
+
+            // Display profile info
+            displayProfileInfo(currentUser.id);
+
+            // Logout button handler
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', handleLogout);
+            }
+        });
+
+        // Display user profile information
+        function displayProfileInfo(userId) {
+            const profileInfo = document.getElementById('profileInfo');
+            if (!profileInfo) return;
+
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const user = users.find(user => user.id === userId);
+
+            if (!user) {
+                profileInfo.innerHTML = '<p>Error loading profile information</p>';
+                return;
+            }
+
+            // Create profile HTML
+            let html = `
+        <div class="profile-detail">
+            <strong>Name:</strong> ${user.fullName}
+        </div>
+        <div class="profile-detail">
+            <strong>Email:</strong> ${user.email}
+        </div>
+        <div class="profile-detail">
+            <strong>Role:</strong> ${user.role.charAt(0).toUpperCase() + user.role.slice(1)}
+        </div>
+    `;
+
+            if (user.education) {
+                html += `
+            <div class="profile-detail">
+                <strong>Education:</strong>
+                <p>${user.education}</p>
+            </div>
+        `;
+            }
+
+            if (user.experience) {
+                html += `
+            <div class="profile-detail">
+                <strong>Experience:</strong>
+                <p>${user.experience}</p>
+            </div>
+        `;
+            }
+
+            if (user.interests) {
+                html += `
+            <div class="profile-detail">
+                <strong>Interests:</strong>
+                <p>${user.interests}</p>
+            </div>
+        `;
+            }
+
+            profileInfo.innerHTML = html;
+        }
+
+        // Handle logout
+        function handleLogout() {
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('currentUser');
+            window.location.href = '../../Login/login.html';
+        }
+
+        // Mobile Navigation
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        if (hamburger) {
+            hamburger.addEventListener('click', () => {
+                navLinks.classList.toggle('show');
+            });
+        }
+
+        // Counter Animation
+        const counters = document.querySelectorAll('.counter');
+        const speed = 200;
+
+        function animateCounters() {
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const count = +counter.innerText;
+
+                const increment = target / speed;
+
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + increment);
+                    setTimeout(animateCounters, 1);
+                } else {
+                    counter.innerText = target.toLocaleString();
+                }
+            });
+        }
+
+        // Check if element is in viewport
+        function isInViewport(element) {
+            const rect = element.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+        }
+
+        // Start animation when stats section is in viewport
+        const statsSection = document.querySelector('.stats');
+        let hasAnimated = false;
+
+        window.addEventListener('scroll', () => {
+            if (isInViewport(statsSection) && !hasAnimated) {
+                animateCounters();
+                hasAnimated = true;
+            }
+        });
+
+        // Testimonial Slider
+        const slides = document.querySelectorAll('.testimonial-slide');
+        const dots = document.querySelectorAll('.dot');
+        const prevBtn = document.querySelector('.prev-btn');
+        const nextBtn = document.querySelector('.next-btn');
+        let currentSlide = 0;
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+
+            currentSlide = (n + slides.length) % slides.length;
+
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function prevSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        if (prevBtn && nextBtn) {
+            prevBtn.addEventListener('click', prevSlide);
+            nextBtn.addEventListener('click', nextSlide);
+        }
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                showSlide(index);
+            });
+        });
+
+        // Auto-advance slides
+        let slideInterval = setInterval(nextSlide, 6000);
+
+        // Pause auto-advance on hover
+        const testimonialSlider = document.querySelector('.testimonial-slider');
+        if (testimonialSlider) {
+            testimonialSlider.addEventListener('mouseenter', () => {
+                clearInterval(slideInterval);
+            });
+
+            testimonialSlider.addEventListener('mouseleave', () => {
+                slideInterval = setInterval(nextSlide, 6000);
+            });
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Mobile responsive navbar
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 1024) {
+                navLinks.classList.remove('show');
+            }
+        });
+        // Initialize page
+        renderEvents();
+        updateStats();
+    </script>
+</body>
+</html>
